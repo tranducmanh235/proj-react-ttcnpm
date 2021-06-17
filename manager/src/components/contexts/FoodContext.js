@@ -12,6 +12,7 @@ const FoodContextProvider = ({children}) => {
     const getFood = async () => {
         try {
             const response = await axios.get(`${apiUrl}/foodHandler/foods`)
+            console.log(response.data);
             if (response.data.success) {
                 setFoodState({
                     food: response.data.food
@@ -23,8 +24,13 @@ const FoodContextProvider = ({children}) => {
         }
     }
     
+    console.log(children);
 
-    const FoodContextData = {getFood, foodState}
+    const change = (newFood) => {
+        setFoodState(newFood);
+    }
+
+    const FoodContextData = {getFood, foodState, change}
 
     return (
         <FoodContext.Provider value = {FoodContextData}>
