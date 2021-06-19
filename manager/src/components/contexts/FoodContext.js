@@ -80,7 +80,17 @@ const FoodContextProvider = ({children}) => {
             console.log(error)
         }
     }
-    
+    const change = (newFood) => {
+        const newFoodState={...foodState};
+        for(let i=0;i<newFoodState.foodList.length;i++){
+            if(newFoodState.foodList[i]._id==newFood._id){
+                newFoodState.foodList[i]=newFood
+                setFoodState(newFoodState);
+                return
+            }
+        }
+        
+    }
     const findFood = foodId => {
         const food = foodState.foodList.find(food => food._id === foodId)
         setFoodState({
@@ -129,7 +139,7 @@ const FoodContextProvider = ({children}) => {
     }
 
     // xuat ham ra
-    const FoodContextData = {getFood, findFood, setShowFoodModal, setModifyFoodModal, addToCart, decreaseQuantity, increaseQuantity, removeFood, foodState, cartState, showFoodModal, modifyFoodModal}
+    const FoodContextData = {getFood,change, findFood, setShowFoodModal, setModifyFoodModal, addToCart, decreaseQuantity, increaseQuantity, removeFood, foodState, cartState, showFoodModal, modifyFoodModal}
 
     return (
         <FoodContext.Provider value = {FoodContextData}>
