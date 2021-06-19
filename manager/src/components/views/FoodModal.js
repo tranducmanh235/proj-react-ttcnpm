@@ -8,6 +8,7 @@ const FoodModal = () => {
         setShowFoodModal(false)
     }
     
+<<<<<<< HEAD
     const [newFood,setNewFood]=useState(food)
     const tempFood={...newFood};
     //console.log(newFood)
@@ -25,6 +26,8 @@ const FoodModal = () => {
         change(newFood)
         closeDialog()
     }
+=======
+>>>>>>> origin
     return (
         <Modal show={showFoodModal} animation={false} onHide={closeDialog}>
             <Modal.Header closeButton>

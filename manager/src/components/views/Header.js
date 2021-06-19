@@ -19,8 +19,6 @@ const Header = () => {
                             <Nav.Link href='/' className=''>Menu</Nav.Link>
                             <Nav.Link href='/signin' className=''>Sign In</Nav.Link>
                             <Nav.Link href='/addfood' className=''>Add Food</Nav.Link>
-                            <Nav.Link href='/modifyfood' className=''>Modify Food</Nav.Link>
-                            <Nav.Link href='/deletefood' className=''>Delete Food</Nav.Link>
 
                             {/* <Nav.Link><NavLink to='/deletefood' >Delete Food</NavLink></Nav.Link> */}
                             

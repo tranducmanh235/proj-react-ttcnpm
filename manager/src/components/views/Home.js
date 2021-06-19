@@ -20,6 +20,8 @@ import Header from './Header'
 import { FoodContext } from '../contexts/FoodContext'
 import SingleFood from './SingleFood'
 import FoodModal from './FoodModal'
+import DeleteModal from './DeleteModal'
+import ModifyModal from './ModifyModal'
 
 const Home = () => {
     const {foodState: {food, foodList}, getFood} = useContext(FoodContext)
@@ -34,6 +36,8 @@ const Home = () => {
                 ))}
             </div>
             {food !== null && <FoodModal />}
+            {food !== null && <ModifyModal />}
+            {food !== null && <DeleteModal />}
         </div>
     )
 }
