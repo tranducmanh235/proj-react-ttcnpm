@@ -1,6 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { FoodContext } from '../contexts/FoodContext';
-import { Card, Form, Button, Modal } from 'react-bootstrap';
+
+import { 
+    Card, Form, Button, Modal, Container, Row, Col, Alert 
+} from 'react-bootstrap';
 
 const DeleteFood = () => {
     
@@ -12,7 +15,7 @@ const DeleteFood = () => {
 
     // check da chon mon hay chua
     const [listCheck, setListCheck] = useState([]);
-    
+
     // goi ham getFood()
     useEffect (       
         () => {           
@@ -23,20 +26,22 @@ const DeleteFood = () => {
     // show Modal
     const [show, setShow] = useState(false);
 
+    // khi Click [huy] trong Modal
     const handleClose = () => setShow(false);
 
     // check da chon mon hay chua
     const handleShow = () => {
         if(countChecked < 1){
             alert('Vui lòng chọn món ăn!')
-            return
+            return // <Alert>Vui lòng chọn món ăn!</Alert>
         }
         setShow(true);
     }
 
-    // ham xoa 
+    // ham xu ly khi Click [xoa] trong Modal
     const handleDeleteCheckBox = () => {
         var result = food
+
         for(let i = 0; i < food.length; i++) {
             var temp = [];
             for(let j = 0; j < listCheck.length; j++) {               
@@ -45,7 +50,7 @@ const DeleteFood = () => {
             }
 
             if(temp.length > 0) {
-                if(Boolean(Object.values(temp[temp.length-1])) == true) {
+                if(Boolean(Object.values(temp[temp.length - 1])) == true) {
                     result = result.filter(item => {
                         return item.foodID != String(Object.keys(temp[temp.length - 1]))
                     })  
@@ -59,6 +64,7 @@ const DeleteFood = () => {
         setListCheck([])
     }
 
+    // ham de set gia tri countChecked => xem da check mon an chua
     function handleCheckboxChange(e) {
 
         var name = e.target.name
@@ -74,46 +80,72 @@ const DeleteFood = () => {
             setcountChecked(countChecked + 1);
         else 
             setcountChecked(countChecked - 1);
-        //setChecked(!checked);
     }
-    //setFoodState([{_id: "60ad5abde581a5642444be1f", foodID: "20201", name: "Sườn heo hun khói", price: "299000", imageURL: "images/suonheohunkhoi.jpg",name: "Sườn heo hun khói",price: "299000"}])
-   //console.log(Object.keys(listCheck[0]))
-    //console.log(food)
-    console.log(listCheck)
-    // console.log(food)
-    return (
-        <div className='col-md-10 col-lg-8 mx-auto d-block'>      
-            <div className='row justify-content-center'>               
-                { food.map((one) => (
-                    <Card className='col-md-5 col-lg-3 m-3' key={one._id}>
-                        <Form.Group className="mb-3" controlId={one.foodID}  >
-                            <Form.Check type="checkbox" name={one.foodID} onChange={handleCheckboxChange}/>
-                        </Form.Group>
-                        <Card.Img src={one.imageURL} alt='img' />
-                        <Card.Body>
-                            <Card.Title className='text-center font-weight-bold text-primary' >{one.name}</Card.Title>
-                            <Card.Text className='text-center font-weight-bold'>{one.price} đ</Card.Text>
-                        </Card.Body>                       
-                    </Card> 
-                ))}
-                    
-            </div>
-            <Button variant="primary" onClick={handleShow}>
-                Delete
-            </Button>
+    
+    //console.log(listCheck)
 
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Body>Bạn có chắc chắn muốn xóa?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleDeleteCheckBox}>
-                        Delete
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+    // --------- CSS --------- //
+    const styleContainer = {
+        marginTop: '35px',
+        marginBottom: '35px',
+        // border: '1px solid #ccc',
+        border: '3px solid #458bdb',
+        padding: '20px',
+    }
+
+    const stylebtnDelete = {
+        paddingLeft: '30px',
+        paddingRight: '30px',
+        marginLeft: '46%',
+        marginTop: '20px'
+    }
+
+    const stylebtnModal = {
+        paddingLeft: '20px',
+        paddingRight: '20px'
+    }
+    
+    return (
+        <div className='col-md-10 col-lg-8 mx-auto d-block'> 
+            <Container style={styleContainer}>
+                <Form.Group as={Row}>
+                    <Col className="border-bottom">
+                        <center><Form.Label><h1>Xóa món ăn</h1></Form.Label></center>                       
+                    </Col>
+                </Form.Group>
+                <div className='row justify-content-center'>               
+                    { food.map((one) => (
+                        <Card className='col-md-5 col-lg-3 m-3' key={one._id}>
+                            <Form.Group className="mb-3" controlId={one.foodID}  >
+                                <Form.Check type="checkbox" name={one.foodID} onChange={handleCheckboxChange}/>
+                            </Form.Group>
+                            <Card.Img src={one.imageURL} alt='img' />
+                            <Card.Body>
+                                <Card.Title className='text-center font-weight-bold text-primary' >{one.name}</Card.Title>
+                                <Card.Text className='text-center font-weight-bold'>{one.price} đ</Card.Text>
+                            </Card.Body>                       
+                        </Card> 
+                    ))}  
+                </div>
+                <Button variant="primary" style={stylebtnDelete} onClick={handleShow}>
+                    Xóa   
+                </Button>
+
+                {/*  ----- Modal ----- */}
+                <Modal show={show} onHide={handleClose}>
+                    <Modal.Body>Bạn có chắc chắn muốn xóa?</Modal.Body>
+                    <Modal.Footer>
+                        <Button style={stylebtnModal} variant="secondary" onClick={handleClose}>
+                            Hủy
+                        </Button>
+                        <Button style={stylebtnModal} variant="primary" onClick={handleDeleteCheckBox}>
+                            Xóa
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+            </Container>
         </div>
     )
 }
+
 export default DeleteFood;
