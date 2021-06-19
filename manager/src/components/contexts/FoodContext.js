@@ -55,6 +55,7 @@ const FoodContextProvider = ({children}) => {
 
     const [showFoodModal, setShowFoodModal] = useState(false)
     const [modifyFoodModal, setModifyFoodModal] = useState(false)
+    const [deleteFoodModal, setDeleteFoodModal] = useState(false)
 
     useEffect(() => {
         if (localStorage.getItem('cart')) {
@@ -129,7 +130,12 @@ const FoodContextProvider = ({children}) => {
     }
 
     // xuat ham ra
-    const FoodContextData = {getFood, findFood, setShowFoodModal, setModifyFoodModal, addToCart, decreaseQuantity, increaseQuantity, removeFood, foodState, cartState, showFoodModal, modifyFoodModal}
+    const FoodContextData = {
+        getFood, findFood, setShowFoodModal, setModifyFoodModal, 
+        setDeleteFoodModal ,addToCart, decreaseQuantity, increaseQuantity, 
+        removeFood, foodState, cartState, showFoodModal, modifyFoodModal,
+        deleteFoodModal
+    }
 
     return (
         <FoodContext.Provider value = {FoodContextData}>

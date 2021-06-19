@@ -5,7 +5,11 @@ import { FoodContext } from '../contexts/FoodContext'
 const SingleFood = ({food}) => {
 
     // them ham o day
-    const {findFood, setShowFoodModal, addToCart, setModifyFoodModal} = useContext(FoodContext)
+    const {
+        findFood, setShowFoodModal, addToCart, setModifyFoodModal, 
+        setDeleteFoodModal
+    } = useContext(FoodContext)
+
     const chooseFood = foodId => {
         findFood(foodId)
         setShowFoodModal(true)
@@ -13,8 +17,27 @@ const SingleFood = ({food}) => {
 
     const modifyFood = foodId => {
         findFood(foodId)
-        // setModifyFoodModal(true)
-        setShowFoodModal(true)
+        setModifyFoodModal(true)
+    }
+
+    const deleteFood = foodId => {
+        findFood(foodId)
+        setDeleteFoodModal(true)   
+    }
+
+
+    // ----------- CSS Btn ----------- //
+
+    const styleBtnModify = {
+        width: '80px',
+        display: 'inline-block',
+        float: 'left'
+    }
+
+    const styleBtnDelete = {
+        width: '80px',
+        display: 'inline-block',
+        float: 'right'
     }
 
     return (
@@ -26,10 +49,14 @@ const SingleFood = ({food}) => {
             </Card.Body>
             {/* <Button variant='danger' onClick={addToCart.bind(this, food._id)}>ADD TO CART</Button> */}
 
-            <>
-                {/* <Button variant='primary' >Delete</Button> */}
-                <Button variant='success' onClick={modifyFood.bind(this, food._id)}>Modify</Button>
-            </>
+            <div>
+                <p style={styleBtnModify}>
+                    <Button variant='success' onClick={modifyFood.bind(this, food._id)}>Modify</Button>
+                </p>
+                <p style={styleBtnDelete}>
+                    <Button variant='danger' onClick={deleteFood.bind(this, food._id)} >Delete</Button>
+                </p>
+            </div>
         </Card>
     )
 }

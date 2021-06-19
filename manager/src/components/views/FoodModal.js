@@ -7,6 +7,7 @@ const FoodModal = () => {
     const closeDialog = () => {
         setShowFoodModal(false)
     }
+    
     return (
         <Modal show={showFoodModal} animation={false} onHide={closeDialog}>
             <Modal.Header closeButton>
